@@ -40,7 +40,7 @@ public class Alice : Controller {
 
     var m = new MorpherClient();
 
-    str = str.Select(x=> m.Russian.Parse(x).Plural.Nominative).ToArray();
+    str = str.Where(x=>!string.IsNullOrWhiteSpace(x)).Select(x=> m.Russian.Parse(x).Plural.Nominative).ToArray();
     
     var s = str.FirstOrDefault(x => replies.ContainsKey(x));
 
