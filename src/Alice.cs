@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Morpher.WebService.V3;
 
 public class Alice : Controller {
   static void Main(string[] args) => CreateWebHostBuilder(args).Build().Run();
@@ -37,6 +38,10 @@ public class Alice : Controller {
   {
     var str = req.Request.Command.Split(' ');
 
+    var m = new MorpherClient();
+
+    str = str.Select(x=> m.Russian.Parse(x).Plural.Nominative).ToArray();
+    
     var s = str.FirstOrDefault(x => replies.ContainsKey(x));
 
     if (s != null)
